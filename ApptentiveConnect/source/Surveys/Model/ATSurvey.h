@@ -24,6 +24,8 @@
 
 - (void)addQuestion:(ATSurveyQuestion *)question;
 
+- (NSInteger)activeQuestionCount;
+
 - (void)reset;
 
 @end

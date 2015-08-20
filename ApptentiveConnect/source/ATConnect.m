@@ -109,6 +109,29 @@ NSString *const ATConnectCustomDeviceDataChangedNotification = @"ATConnectCustom
 	[super dealloc];
 }
 
+-(NSString *)answerForHiddenQuestion:(NSString *)question
+{
+	if ([self.atDelegate respondsToSelector:@selector(answerForHiddenQuestion:)]) {
+		return [self.atDelegate answerForHiddenQuestion:question];
+	}
+	
+	return @"";
+}
+
+-(void)didCompletedSurvey
+{
+	if ([self.atDelegate respondsToSelector:@selector(didCompletedSurvey)]) {
+		[self.atDelegate didCompletedSurvey];
+	}
+}
+
+-(void)willPresentSurvey
+{
+	if ([self.atDelegate respondsToSelector:@selector(willPresentSurvey)]) {
+		[self.atDelegate willPresentSurvey];
+	}
+}
+
 - (void)setApiKey:(NSString *)anAPIKey {
 	if (apiKey != anAPIKey) {
 		[apiKey release];
@@ -552,10 +575,10 @@ NSString *const ATConnectCustomDeviceDataChangedNotification = @"ATConnectCustom
 @end
 
 NSString *ATLocalizedString(NSString *key, NSString *comment) {
-	static NSBundle *bundle = nil;
-	if (!bundle) {
-		bundle = [[ATConnect resourceBundle] retain];
-	}
-	NSString *result = [bundle localizedStringForKey:key value:key table:nil];
-	return result;
+//	static NSBundle *bundle = nil;
+//	if (!bundle) {
+//		bundle = [[ATConnect resourceBundle] retain];
+//	}
+//	NSString *result = [bundle localizedStringForKey:key value:key table:nil];
+	return key;
 }

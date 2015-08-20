@@ -46,6 +46,7 @@ typedef enum {
 - (void)addSelectedAnswerChoice:(ATSurveyQuestionAnswer *)answer;
 - (void)removeSelectedAnswerChoice:(ATSurveyQuestionAnswer *)answer;
 - (ATSurveyQuestionValidationErrorType)validateAnswer;
+- (BOOL)isHiddenQuestion;
 
 - (void)reset;
 @end

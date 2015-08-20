@@ -93,6 +93,16 @@ extern NSString *const ATIntegrationKeyParse;
  * `ATIntegrationKeyKahuna` - For Kahuna
  * `ATIntegrationKeyParse` - For Parse
  */
+
+@protocol ATConnectDelegate <NSObject>
+
+@optional
+-(NSString*)answerForHiddenQuestion:(NSString*)question;
+-(void)didCompletedSurvey;
+-(void)willPresentSurvey;
+
+@end
+
 @interface ATConnect : NSObject {
 @private
 #if TARGET_OS_IPHONE
@@ -110,6 +120,8 @@ extern NSString *const ATIntegrationKeyParse;
 	NSString *customPlaceholderText;
 	BOOL useMessageCenter;
 }
+
+@property (nonatomic, assign) id<ATConnectDelegate>atDelegate;
 
 ///---------------------------------
 /// @name Basic Usage
@@ -166,6 +178,10 @@ extern NSString *const ATIntegrationKeyParse;
  */
 @property (nonatomic, retain) UIColor *tintColor;
 #endif
+
+-(NSString*)answerForHiddenQuestion:(NSString*)question;
+-(void)didCompletedSurvey;
+-(void)willPresentSurvey;
 
 
 #if TARGET_OS_IPHONE

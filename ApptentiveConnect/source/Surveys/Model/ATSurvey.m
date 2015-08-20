@@ -83,4 +83,17 @@
 	}
 }
 
+- (NSInteger)activeQuestionCount {
+	NSInteger cnt = self.questions.count;
+	int i = cnt - 1;
+	for (; i >= 0; i--) {
+		ATSurveyQuestion *q = self.questions[i];
+		if (![q isHiddenQuestion]) {
+			break;
+		}
+	}
+	
+	return i + 1;
+}
+
 @end

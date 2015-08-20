@@ -226,6 +226,32 @@ enum {
 	tableView.dataSource = self;
 	[tableView reloadData];
 	[self registerForKeyboardNotifications];
+	
+	[self getAnswerForHiddenQuestions];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	[[ATConnect sharedConnection] willPresentSurvey];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+	[[ATConnect sharedConnection] didCompletedSurvey];
+}
+
+-(void)getAnswerForHiddenQuestions
+{
+	for (int i = survey.questions.count - 1; i >= 0; i--) {
+		ATSurveyQuestion *q = survey.questions[i];
+		if ([q isHiddenQuestion]) {
+			q.answerText = [[ATConnect sharedConnection] answerForHiddenQuestion:q.questionText];
+		}else {
+			break;
+		}
+	}
 }
 
 - (void)viewDidUnload {
@@ -250,11 +276,11 @@ enum {
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
-	return [[survey questions] count] + 1;
+	return [survey activeQuestionCount] + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
-	if (section < [[survey questions] count]) {
+	if (section < [survey activeQuestionCount]) {
 		NSUInteger result = 0;
 		ATSurveyQuestion *question = [[survey questions] objectAtIndex:section];
 		if (question.type == ATSurveyQuestionTypeSingeLine) {
@@ -266,7 +292,7 @@ enum {
 			result++;
 		}
 		return result;
-	} else if (section == [[survey questions] count]) {
+	} else if (section == [survey activeQuestionCount]) {
 		return 1;
 	}
 	return 0;
@@ -345,7 +371,7 @@ enum {
 	static NSString *ATSurveyQuestionCellIdentifier = @"ATSurveyQuestionCellIdentifier";
 	static NSString *ATSurveySendCellIdentifier = @"ATSurveySendCellIdentifier";
 	
-	if (indexPath.section == [[survey questions] count]) {
+	if (indexPath.section == [survey activeQuestionCount]) {
 		UITableViewCell *buttonCell = nil;
 		buttonCell = [tableView dequeueReusableCellWithIdentifier:ATSurveySendCellIdentifier];
 		if (!buttonCell) {
@@ -358,7 +384,7 @@ enum {
 			buttonCell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		}
 		return buttonCell;
-	} else if (indexPath.section >= [[survey questions] count]) {
+	} else if (indexPath.section >= [survey activeQuestionCount]) {
 		return nil;
 	}
 	ATSurveyQuestion *question = [self questionAtIndexPath:indexPath];
@@ -512,7 +538,7 @@ enum {
 }
 
 - (NSString *)tableView:(UITableView *)aTableView titleForFooterInSection:(NSInteger)section {
-	if (section == [[survey questions] count] && errorText != nil) {
+	if (section == [survey activeQuestionCount] && errorText != nil) {
 		return errorText;
 	}
 	return nil;
@@ -520,13 +546,13 @@ enum {
 
 - (void)scrollToBottom {
 	if (tableView) {
-		NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[[survey questions] count]];
+		NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[survey activeQuestionCount]];
 		[tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
 	}
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == [[survey questions] count]) {
+	if (indexPath.section == [survey activeQuestionCount]) {
 		if ([self validateSurvey]) {
 			[self sendSurvey];
 		} else {
@@ -728,7 +754,12 @@ enum {
 	if (indexPath.section >= [[survey questions] count]) {
 		return nil;
 	}
-	return [[survey questions] objectAtIndex:indexPath.section];
+	ATSurveyQuestion *q = [[survey questions] objectAtIndex:indexPath.section];
+	if ([q isHiddenQuestion]) {
+		return nil;
+	}
+	
+	return q;
 }
 
 - (BOOL)questionHasExtraInfo:(ATSurveyQuestion *)question {

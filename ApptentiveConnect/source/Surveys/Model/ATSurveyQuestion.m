@@ -140,6 +140,11 @@
 	return error;
 }
 
+-(BOOL)isHiddenQuestion
+{
+	return [self.questionText.lowercaseString hasPrefix:@"hidden"];
+}
+
 - (void)reset {
 	[selectedAnswerChoices removeAllObjects];
 	self.answerText = nil;

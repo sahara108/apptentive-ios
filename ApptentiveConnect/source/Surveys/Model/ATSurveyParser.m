@@ -157,16 +157,30 @@
 		survey.successMessage = interaction.configuration[@"success_message"];
 	}
 	
+	NSMutableArray *normalQuestions = [NSMutableArray new];
+	NSMutableArray *hiddenQuestions = [NSMutableArray new];
 	NSArray *questions = interaction.configuration[@"questions"];
 	if ([questions isKindOfClass:[NSArray class]]) {
 		for (NSObject *question in questions) {
 			if ([question isKindOfClass:[NSDictionary class]]) {
 				ATSurveyQuestion *result = [self questionWithJSONDictionary:(NSDictionary *)question];
 				if (result) {
-					[survey addQuestion:result];
+					if ([result isHiddenQuestion]) {
+						[hiddenQuestions addObject:result];
+					}else {
+						[normalQuestions addObject:result];
+					}
 				}
 			}
 		}
+	}
+	
+	for (ATSurveyQuestion *q in normalQuestions) {
+		[survey addQuestion:q];
+	}
+	
+	for (ATSurveyQuestion *q in hiddenQuestions) {
+		[survey addQuestion:q];
 	}
 	
 	return [survey autorelease];
