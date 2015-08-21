@@ -575,10 +575,10 @@ NSString *const ATConnectCustomDeviceDataChangedNotification = @"ATConnectCustom
 @end
 
 NSString *ATLocalizedString(NSString *key, NSString *comment) {
-//	static NSBundle *bundle = nil;
-//	if (!bundle) {
-//		bundle = [[ATConnect resourceBundle] retain];
-//	}
-//	NSString *result = [bundle localizedStringForKey:key value:key table:nil];
-	return key;
+	static NSBundle *bundle = nil;
+	if (!bundle) {
+		bundle = [[ATConnect resourceBundle] retain];
+	}
+	NSString *result = [bundle localizedStringForKey:key value:key table:nil];
+	return result;
 }
