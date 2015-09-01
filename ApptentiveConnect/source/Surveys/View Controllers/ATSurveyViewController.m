@@ -239,7 +239,10 @@ enum {
 -(void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
-	[[ATConnect sharedConnection] didCompletedSurvey];
+	UIViewController *vc = self.presentingViewController;
+	if (!vc) {
+		[[ATConnect sharedConnection] didCompletedSurvey];
+	}
 }
 
 -(void)getAnswerForHiddenQuestions
