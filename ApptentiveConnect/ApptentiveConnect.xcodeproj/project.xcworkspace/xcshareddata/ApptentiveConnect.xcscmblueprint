@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "DCEE736E74A77829EBFCA9ADD0AF052DBF560B1B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "198D5E0992F059237F57495627B8F3D5D9793C03" : 0,
+    "DCEE736E74A77829EBFCA9ADD0AF052DBF560B1B" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4C30C8F4-C8ED-4A48-80C7-596C3FC4BA9E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "198D5E0992F059237F57495627B8F3D5D9793C03" : "",
+    "DCEE736E74A77829EBFCA9ADD0AF052DBF560B1B" : "apptentive-ios"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ApptentiveConnect",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ApptentiveConnect\/ApptentiveConnect.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/fabricapp\/fabric-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "198D5E0992F059237F57495627B8F3D5D9793C03"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sahara108\/apptentive-ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DCEE736E74A77829EBFCA9ADD0AF052DBF560B1B"
+    }
+  ]
+}
