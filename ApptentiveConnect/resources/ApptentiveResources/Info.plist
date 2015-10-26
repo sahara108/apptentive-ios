@@ -6,5 +6,11 @@
 	<string></string>
 	<key>ATInfoDistributionKey</key>
 	<string>source</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.1</string>
+	<key>CFBundleVersion</key>
+	<string>1733</string>
+	<key>CFBundleIdentifier</key>
+	<string>co.apptentive.resources</string>
 </dict>
 </plist>
