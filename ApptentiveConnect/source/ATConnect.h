@@ -103,6 +103,7 @@ Before calling any other methods on the shared `ATConnect` instance, set the API
 @optional
 -(NSString*)answerForHiddenQuestion:(NSString*)question;
 -(void)didCompletedSurvey;
+-(void)didCancelSurvey;
 -(void)willPresentSurvey;
 
 @end
@@ -172,6 +173,7 @@ Before calling any other methods on the shared `ATConnect` instance, set the API
 //@tuan.nguyen: our custom methods
 -(NSString*)answerForHiddenQuestion:(NSString*)question;
 -(void)didCompletedSurvey;
+-(void)didCancelSurvey;
 -(void)willPresentSurvey;
 
 #if TARGET_OS_IPHONE

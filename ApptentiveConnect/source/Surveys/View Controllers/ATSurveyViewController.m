@@ -167,11 +167,13 @@ enum {
 	if (self.survey.showSuccessMessage && self.survey.successMessage) {
 //		UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:ATLocalizedString(@"Thanks!", @"Text in thank you display upon submitting survey.") message:self.survey.successMessage delegate:nil cancelButtonTitle:ATLocalizedString(@"OK", @"OK button title") otherButtonTitles:nil];
 //		[successAlert show];
+		[[ATConnect sharedConnection] didCompletedSurvey];
 	} else {
-		ATHUDView *hud = [[ATHUDView alloc] initWithWindow:self.view.window];
-		hud.label.text = ATLocalizedString(@"Thanks!", @"Text in thank you display upon submitting survey.");
-		hud.fadeOutDuration = 5.0;
-		[hud show];
+//		ATHUDView *hud = [[ATHUDView alloc] initWithWindow:self.view.window];
+//		hud.label.text = ATLocalizedString(@"Thanks!", @"Text in thank you display upon submitting survey.");
+//		hud.fadeOutDuration = 5.0;
+//		[hud show];
+		[[ATConnect sharedConnection] didCompletedSurvey];
 	}
 	
 	NSDictionary *metricsInfo = @{ATSurveyMetricsSurveyIDKey: self.survey.identifier ?: [NSNull null],
@@ -224,10 +226,6 @@ enum {
 -(void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
-	UIViewController *vc = self.presentingViewController;
-	if (!vc) {
-		[[ATConnect sharedConnection] didCompletedSurvey];
-	}
 }
 
 -(void)getAnswerForHiddenQuestions
@@ -827,6 +825,8 @@ enum {
 	[[NSNotificationCenter defaultCenter] postNotificationName:ATSurveyDidHideWindowNotification object:nil userInfo:metricsInfo];
 	
 	[self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+	
+	[[ATConnect sharedConnection] didCancelSurvey];
 }
 
 #pragma mark Keyboard Handling

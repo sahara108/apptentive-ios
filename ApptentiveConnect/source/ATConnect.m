@@ -94,6 +94,13 @@ NSString *const ATConnectCustomDeviceDataChangedNotification = @"ATConnectCustom
 	}
 }
 
+-(void)didCancelSurvey
+{
+	if ([self.atDelegate respondsToSelector:@selector(didCancelSurvey)]) {
+		[self.atDelegate didCancelSurvey];
+	}
+}
+
 -(void)willPresentSurvey
 {
 	if ([self.atDelegate respondsToSelector:@selector(willPresentSurvey)]) {
